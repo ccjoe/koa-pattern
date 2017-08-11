@@ -1,0 +1,36 @@
+{
+  "name": "koa-pattern",
+  "version": "1.0.0",
+  "description": "pattern middleware for koa, a koa middleware that support mvc and rest",
+  "main": "index.js",
+  "scripts": {
+    "test": "test && ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccjoe/koa-pattern.git"
+  },
+  "keywords": [
+    "koa2",
+    "mvc",
+    "rest",
+    "restful",
+    "middleware"
+  ],
+  "author": "ccjoe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ccjoe/koa-pattern/issues"
+  },
+  "homepage": "https://github.com/ccjoe/koa-pattern#readme",
+  "devDependencies": {
+    "ava": "^0.21.0",
+    "dot": "^1.1.2",
+    "eslint": "^3.19.0",
+    "koa": "^2.0.0",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "consolidate": "^0.14.5"
+  }
+}
