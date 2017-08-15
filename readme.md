@@ -14,6 +14,7 @@ A Really Simple koa middleware that support mvc and rest , including template re
 
 ```
 $ npm install koa-pattern
+$ npm run example
 ```
 
 ## Templating engines
@@ -44,7 +45,7 @@ app.use(pattern({
 
 For more examples you can take a look at the [example](./example/index.js).
 
-## Dir
+## Demo Dir
 ```
 example
     |-ctrls
@@ -59,7 +60,7 @@ example
 eg: `HTTP GET http://localhost/pages/user/list`
 It will render views dir user/list.html automatic, and view's data return by ctrls/user.js list function
 
-if not `ctrlName` or `actionName`, it default `'index'`
+if not `ctrlName` or `actionName`, it default `'index'`, and if not `index dir`, root view default
 
 ```js
 //ctrls/user.js
@@ -77,13 +78,13 @@ module.exports.list = (ctx, next) => {
 #### `rest pattern` HTTP GET/POST/PUT/DELETE  http://localhost/restPrefix/resourceName/[respration]
 Rest Pattern support 2 url style to render api json data
 eg:
-1. `HTTP GET/POST            http://localhost/api/user/list`
-2. `HTTP GET/POST/PUT/DELETE http://localhost/api/user/007`
+1. `HTTP GET/POST/PUT/DELETE http://localhost/api/user/007`
+2. `HTTP GET/POST            http://localhost/api/user/list`
 
-actually, 1 and 2 is just the same rule url
+actually, `1` and `2` is just the same rule url
 
-and the 1st one will render json by ctrls/user.js `list` methods, and if no `list` function,
-it will match `HTTP method` matched function
+and the `1` will render json by  match `HTTP method` matched function, and `007` will be url argument, eg `007` is userid,
+if not HTTP method matched function, it will match ctrls/user.js `007`/`list` methods,
 match rule
 ```
     'GET': 'query',

@@ -4,7 +4,8 @@
   "description": "pattern middleware for koa, a koa middleware that support mvc and rest",
   "main": "index.js",
   "scripts": {
-    "test": "test && ava"
+    "example": "node ./example",
+    "test": "ava"
   },
   "repository": {
     "type": "git",

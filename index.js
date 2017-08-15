@@ -97,8 +97,8 @@ function rest(ctx, next){
             'DELETE': 'remove'
         }
         var collection = getControls(ctx),
-            state = collection[ctx.pathInfo.action]
-        finalRest = state ? state() : collection[httpMethod[ctx.req.method]]()
+            state = collection[httpMethod[ctx.req.method]]
+        finalRest = state ? state() : collection[ctx.pathInfo.action]()
     } catch (error) {
         finalRest.msg = 'NotFound',
         finalRest.code = 200
@@ -137,14 +137,25 @@ function mvc(ctx, next){
 function render(ctx, opts){
     var render = consolidate[opts.tmplEngine],
         extension =  opts.tmplEngine && opts.tmplEngine.extension || 'html'
-    return function (relPath, data) {
-        data = data || {}
-        ctx.type = 'text/html'
-        return render(path.resolve(opts.dir, 'views', relPath + '.' + extension), data)
-                .then(function(html){
+    var getPath = (relPath) => path.resolve(opts.dir, 'views', relPath + '.' + extension)
+    var renderFn = function(relPath, data){
+        return render(getPath(relPath), data).then(function(html){
                     ctx.body = html
                 }).catch(function (err) {
                     throw err;
                 });
+    }
+
+    return function (relPath, data) {
+        data = data || {}
+        ctx.type = 'text/html'
+        var pathStr = getPath(relPath)
+        return fs.stat(pathStr).then(() => {
+            return renderFn(relPath, data)
+        }).catch((e) => {
+            if(relPath === 'index/index'){
+                return renderFn('index', data)
+            }
+        })
     }
 }
